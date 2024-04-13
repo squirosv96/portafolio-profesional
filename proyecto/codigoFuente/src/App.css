@@ -1,0 +1,106 @@
+.paper{
+  background-color: #060606 !important;
+  width: 85vw;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+}
+
+.paper-right {
+  animation: floatAnimationRight forwards 2s;
+}
+
+.paper-left {
+  animation: floatAnimationLeft forwards 2s;
+}
+
+.page{
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-items: center;
+}
+
+.box-container{
+  z-index: 9;
+  background-color: transparent;
+  padding-bottom: 5vmin;
+  width: 100%;
+  position: relative;
+}
+
+@keyframes floatAnimationRight {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(7vmin);
+  }
+}
+
+@keyframes floatAnimationLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-7vmin);
+  }
+}
+
+.line {
+  background-color: white;
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  width: 200%;
+}
+
+.line-right {
+  animation: moveLinesRight 25s linear infinite alternate;
+}
+
+.line-left {
+  animation: moveLinesLeft 25s linear infinite alternate;
+}
+
+.background-container {
+  width: 200vw;
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.floating-buttons-container {
+  width: 95vw;
+  height: 95vh;
+  position: fixed;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  z-index: 9999;
+}
+
+@keyframes moveLinesRight {
+  from {
+    transform: rotate(90deg);
+  }
+  to {
+    transform: rotate(270deg);
+  }
+}
+
+@keyframes moveLinesLeft {
+  from {
+    transform: rotate(180);
+  }
+  to {
+    transform: rotate(-270deg);
+  }
+}
+
+
+fieldset{
+  border-color: #07603A !important;
+}
