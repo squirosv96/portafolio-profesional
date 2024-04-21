@@ -73,7 +73,7 @@ export const Project = (props) => {
       </Grid>
       <Grid xs={12} md={8} item>
         <Box height={{xs:'120px',sm:'270px',md:'300px'}}>
-          <LazyLoadImage style={{ width:'100%', height:'100%', objectFit: 'contain'}} src={props.src} loading='lazy'/>
+          <LazyLoadImage style={{ width:'100%', height:'100%', objectFit: 'contain'}} src={props.src} loading='lazy' alt={props.alt}/>
         </Box>
       </Grid>
     </Grid>
@@ -96,7 +96,7 @@ export const Tec = (props) => {
     <Grid container xs={12} display={'flex'} justifyContent={'center'} alignItems={'center'}>
       <Grid item xs={6} sm={8} md ={6} display={'flex'} justifyContent={'center'} alignItems={'center'}>
         <Box height={{xs:'200px',sm:'300px',md:'350px'}} >
-          <img src={props.src} width={'100%'} height={'100%'} style={{objectFit:'contain'}}/>
+          <img src={props.src} width={'100%'} height={'100%'} style={{objectFit:'contain'}} alt={props.alt}/>
         </Box>
       </Grid>
     </Grid>);
@@ -153,12 +153,12 @@ export const Contact = (props) => {
           <TextField required sx={{mt:0.5, mb:0.5}}
           InputProps={{style:{borderRadius:0, color:'white'}}}
           InputLabelProps={{style:{color:'white'}}}
-          label={!props.eng?'Nombre':'Name'} variant='outlined' name='name'/>
+          label={!props.eng?'Nombre':'Name'} variant='outlined' name='name' aria-label={!props.eng?'nombre':'name'}/>
 
           <TextField required sx={{mt:0.5, mb:0.5}}
           InputProps={{style:{borderRadius:0, color:'white'}}}
           InputLabelProps={{style:{color:'white'}}}
-           label={!props.eng?'Correo':'Email'} variant='outlined' name='from_email'/>
+           label={!props.eng?'Correo':'Email'} variant='outlined' name='from_email' aria-label={!props.eng?'correo':'email'}/>
 
         </Grid>
         <Grid xs={12} display={'flex'} alignItems={'center'} flexDirection={'column'}>
@@ -166,7 +166,7 @@ export const Contact = (props) => {
           <TextField required sx={{m:0.5}} InputProps={{style:{color:'white', borderColor:'#07603A', borderRadius:0}}} 
           fullWidth label={!props.eng?'Mensaje':'Message'} variant='outlined' 
           InputLabelProps={{style:{color:'white'}}}
-          multiline name='message' rows={3}/>
+          multiline name='message' rows={3} aria-label={!props.eng?'mensaje':'message'}/>
 
           <Button type='submit' size='large' variant='outlined' sx={{m:0.5, color: 'white',borderRadius:0}}>{!props.eng ? 'Enviar':'Send'}</Button>
         </Grid>
@@ -336,9 +336,9 @@ const App = () => {
                         style:{backgroundColor:'#07603A', color:'black', width:'5vmin', height:'5vmin'}
                       }}
                     >
-                      <Project src={cars} description={!eng ? 'Sistema de gestión de vehículos para una agencia. Implementado con React, Spring Boot y Azure Cosmos. Desplegado con Azure DevOps.':'Car management system for an agency. Implemented with React, Spring Boot and Azure Cosmos as a NoSQL DB. Deployed through Azure DevOps.'} title={'DevOps Cars'}/>
-                      <Project src={dungeon} description={!eng ? 'Juego sobre armar y resolver calabozos. Implementado con Java utilizando LibGDX como framework.': 'Dungeon building and solving game. Implemented with Java using LibGDX as framework.'} title={'Dungeon Master'}/>
-                      <Project src={venus} description={!eng ? 'Aplicación de monitoreo del ciclo femenino. Implementado con Angular, Spring Boot, NodeJS y MySQL. Desplegado con Azure DevOps.':'App to monitor the feminine cycle. Implemented with Angular, Spring Boot, NodeJS and MySQL. Deployed through Azure DevOps.'} title={'Venus'}/>
+                      <Project src={cars} description={!eng ? 'Sistema de gestión de vehículos para una agencia. Implementado con React, Spring Boot y Azure Cosmos. Desplegado con Azure DevOps.':'Car management system for an agency. Implemented with React, Spring Boot and Azure Cosmos as a NoSQL DB. Deployed through Azure DevOps.'} title={'DevOps Cars'} alt={'devops cars'}/>
+                      <Project src={dungeon} description={!eng ? 'Juego sobre armar y resolver calabozos. Implementado con Java utilizando LibGDX como framework.': 'Dungeon building and solving game. Implemented with Java using LibGDX as framework.'} title={'Dungeon Master'} alt={'dungeon master'}/>
+                      <Project src={venus} description={!eng ? 'Aplicación de monitoreo del ciclo femenino. Implementado con Angular, Spring Boot, NodeJS y MySQL. Desplegado con Azure DevOps.':'App to monitor the feminine cycle. Implemented with Angular, Spring Boot, NodeJS and MySQL. Deployed through Azure DevOps.'} title={'Venus'} alt={'venus'}/>
                     </Carousel>
                   </Grid>
                 </Grid>
@@ -347,21 +347,31 @@ const App = () => {
           <Box display={'flex'} justifyContent={'flex-end'} alignItems={'flex-end'} pt={'5vmin'} pr={'13vmin'}>
             <Paper square className='paper paper-right' elevation={24}>
               <Grid container xs={12} sx={{p:{xs:'30px 20px',md:3}}}>
-                <Grid item spacing={2} xs={12} md={4} display={'flex'} justifyContent={'center'} alignItems={'center'}>
+                <Grid item xs={12} md={5} sx={{mb:{xs:'auto',md:'50px'}}} display={'flex'} justifyContent={'center'} alignItems={'center'} flexDirection={'column'}>
                   <Typography
                     sx={{
                       fontSize:{
                       md: '6vw',
                       xs: '10vw'
-                    }, 
-                    pb:{xs:'auto', md:'14vmin'}}}
+                    }}}
                     >{!eng?'Experiencia':'Experience'}
                   </Typography>
+                  <Typography
+                    sx={{ 
+                      fontSize:{
+                        md:'1.5rem',
+                        xs:'3.5vmin'
+                      },
+                      textAlign: 'center',
+                      width:'80%'
+                    }}
+                    >{!eng?'Compañías para las que he trabajado, con el título desempeñado y una breve descripción del puesto':"Companies I've worked for, with the title and a brief description of the job"}
+                  </Typography>
                 </Grid>
-                <Grid item xs={12} md={8} sx={{
+                <Grid item xs={12} md={7} sx={{
                   p:{
                     sm:'10px 5px 20px 5px',
-                    xs:'10px 5px 10px 5px',
+                    xs:'10px 5px',
                     md:0
                   },
                   display: 'flex',
@@ -394,20 +404,26 @@ const App = () => {
           <Box display={'flex'} justifyContent={'flex-start'} alignItems={'flex-end'} pt={'5vmin'} pl={'13vmin'}>
             <Paper square className='paper paper-left' elevation={24}>
               <Grid container xs={12} p={{xs: '10px',sm:'30px 10vmin',md:'3vmin 10vmin'}} display={'flex'} justifyContent={'center'} alignItems={'center'}>
-                <Grid item xs={12} md={6} display={'flex'} sx={{justifyContent:{xs:'center',md:'flex-start'}}} alignItems={'center'}>
+                <Grid item xs={12} md={6} display={'flex'} sx={{mb:{xs:'auto',md:'50px'}}} alignItems={'center'} flexDirection={'column'}>
                   <Typography
                     sx={{
                       fontSize:{
                         md: '6vw',
                         xs: '12vmin'
                       },
-                      p:{
-                        xs: '20px 0 0 0',
-                        sm: '20px 0 10px 0',
-                        md: '0 0 14vmin 0'
-                      }
                     }}
                     >{!eng? 'Tecnologías': 'Technologies'}
+                  </Typography>
+                  <Typography
+                    sx={{ 
+                      fontSize:{
+                        md:'1.5rem',
+                        xs:'3.5vmin'
+                      },
+                      textAlign: 'center',
+                      width:'80%'
+                    }}
+                    >{!eng? 'Mi conocimiento se extiende pero no está limitado a las siguientes tecnologías': 'My knowlegde includes but is not limited to the following technologies'}
                   </Typography>
                 </Grid>
                 <Grid item xs={10} md={6} pb={{xs:0,sm:'20px',md:0}}>
@@ -420,16 +436,16 @@ const App = () => {
                     navButtonsProps={{
                       style:{backgroundColor:'#07603A', color:'black', width:'5vmin', height:'5vmin'}
                     }}>
-                      <Tec src={'https://res.cloudinary.com/proyectoiteracion/image/upload/v1713028461/portafolio-sqv/spring_ofioq4.png'}/>
-                      <Tec src={'https://res.cloudinary.com/proyectoiteracion/image/upload/v1713028459/portafolio-sqv/react_utzj1z.png'}/>
-                      <Tec src={'https://res.cloudinary.com/proyectoiteracion/image/upload/v1713028456/portafolio-sqv/node_eptnci.png'}/>
-                      <Tec src={'https://res.cloudinary.com/proyectoiteracion/image/upload/v1713028464/portafolio-sqv/sql_yfjlsm.png'}/>
-                      <Tec src={'https://res.cloudinary.com/proyectoiteracion/image/upload/v1713028476/portafolio-sqv/ado_dkljzf.png'}/>
-                      <Tec src={'https://res.cloudinary.com/proyectoiteracion/image/upload/v1713028470/portafolio-sqv/vanilla_vqnwx9.jpg'}/>
-                      <Tec src={'https://res.cloudinary.com/proyectoiteracion/image/upload/v1713028478/portafolio-sqv/angular_qjvadv.png'}/>
-                      <Tec src={'https://res.cloudinary.com/proyectoiteracion/image/upload/v1713028473/portafolio-sqv/.net_s6hytc.png'}/>
-                      <Tec src={'https://res.cloudinary.com/proyectoiteracion/image/upload/v1713028453/portafolio-sqv/mongo_h1smbj.png'}/>
-                      <Tec src={'https://res.cloudinary.com/proyectoiteracion/image/upload/v1713028448/portafolio-sqv/lbgdx_xkdpvg.png'}/>
+                      <Tec src={'https://res.cloudinary.com/proyectoiteracion/image/upload/v1713028461/portafolio-sqv/spring_ofioq4.png'} alt={'spring'}/>
+                      <Tec src={'https://res.cloudinary.com/proyectoiteracion/image/upload/v1713028459/portafolio-sqv/react_utzj1z.png'} alt={'react'}/>
+                      <Tec src={'https://res.cloudinary.com/proyectoiteracion/image/upload/v1713028456/portafolio-sqv/node_eptnci.png'} alt={'node'}/>
+                      <Tec src={'https://res.cloudinary.com/proyectoiteracion/image/upload/v1713028464/portafolio-sqv/sql_yfjlsm.png'} alt={'sql'}/>
+                      <Tec src={'https://res.cloudinary.com/proyectoiteracion/image/upload/v1713028476/portafolio-sqv/ado_dkljzf.png'} alt={'azure devops'}/>
+                      <Tec src={'https://res.cloudinary.com/proyectoiteracion/image/upload/v1713028470/portafolio-sqv/vanilla_vqnwx9.jpg'} alt={'javascript'}/>
+                      <Tec src={'https://res.cloudinary.com/proyectoiteracion/image/upload/v1713028478/portafolio-sqv/angular_qjvadv.png'} alt={'angular'}/>
+                      <Tec src={'https://res.cloudinary.com/proyectoiteracion/image/upload/v1713028473/portafolio-sqv/.net_s6hytc.png'} alt={'.net'}/>
+                      <Tec src={'https://res.cloudinary.com/proyectoiteracion/image/upload/v1713028453/portafolio-sqv/mongo_h1smbj.png'} alt={'mongodb'}/>
+                      <Tec src={'https://res.cloudinary.com/proyectoiteracion/image/upload/v1713028448/portafolio-sqv/lbgdx_xkdpvg.png'} alt={'libgdx'}/>
                   </Carousel>
                 </Grid>
               </Grid>
@@ -438,30 +454,37 @@ const App = () => {
           <Box display={'flex'} justifyContent={'flex-end'} alignItems={'flex-end'} pt={'5vmin'} pr={'13vmin'}>
             <Paper square className='paper paper-right' elevation={24}>
               <Grid container xs={12} sx={{p:{xs:'6vmin 7vmin',md:3}}} height={'100%'}>
-                <Grid item xs={12} md={4} display={'flex'} alignItems={'center'} sx={{justifyContent:{xs:'center'}}}>
+                <Grid item sx={{mb:{xs:'auto',md:'50px'}}} xs={12} md={5} display={'flex'} alignItems={'center'} justifyContent={'center'} flexDirection={'column'}>
                   <Typography
                     sx={{
                       fontSize:{
                         md: '6vw',
                         xs: '12vmin'
-                      },
-                      pb:{
-                        xs:'auto',
-                        md:'14vmin',
-                        sm: '20px'
                       }
                     }}
                     >{!eng ? 'Contacto':'Contact'}
                   </Typography>
+                  <Typography
+                    sx={{ 
+                      fontSize:{
+                        md:'1.2rem',
+                        sm:'1.5rem',
+                        xs:'1rem'
+                      },
+                      textAlign: 'center',
+                      width:{md:'70%',sm:'80%',xs:'90%'}
+                    }}
+                    >{!eng? 'Formulario de contacto al correo electrónico. También se me puede contactar por WhatsApp con el botón a la derecha': 'Email contact form. You can also contact me to my phone through WhatsApp using the button to the right'}
+                  </Typography>
                 </Grid>
-                <Grid item xs={12} md={8} >
+                <Grid item xs={12} md={7} >
                   <Contact eng={eng} handleConfirm = {handleMessageResponse}/>
                 </Grid>
               </Grid>
             </Paper>
           </Box>
           <Stack direction='row' alignItems='center' sx={{position:'fixed',top:0,left:0, margin:3}}>
-            <img src={'https://res.cloudinary.com/proyectoiteracion/image/upload/v1713028467/portafolio-sqv/united-states_vwnvtp.png'}/>
+            <img src={'https://res.cloudinary.com/proyectoiteracion/image/upload/v1713028467/portafolio-sqv/united-states_vwnvtp.png'} alt={eng?'United States flag':'Bandera de los Estados Unidos'}/>
             <Switch checked={eng} onChange={()=>{setEng(!eng)}} color='secondary'/>
           </Stack>
           <Box position={'fixed'} bottom={0} right={0} m={3} display={'flex'} flexDirection={'column'} alignItems={'center'}>
